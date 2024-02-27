@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Endereço pelo CEP</title>
+</head>
+<body>
+
+    <label title="Numero do CEP">Digite o CEP:</label>
+    <input type="text" id="numero_cep" name="numero_cep" ></input>
+    <input type="button" value="Pesquisar" onclick="chamarServicoViaCEP()" >
+  
+</body>
+</html>
+
+    <script>
+function chamarServicoViaCEP() {
+    //cep_digitalizado = document.getElementById('numero_cep').value;
+    cep_digitalizado = "01001000";
+
+    const urlViaCEP = "https://viacep.com.br/ws/" + cep_digitalizado +  "/json/";
+
+    fetch(urlViaCEP)
+    
+    .then((response) => {
+if (response.ok)  
+{
+    alert("Resposta ok ");
+
+    return response.json();
+}
+else
+{
+    alert("Resposta não ok");
+}
+    })
+    .then((data) => {
+        //alert(data);
+        console.log(`Informações do CEP: ${cep_digitalizado}`);
+        console.log(`Logradouroo: ${data.logradouro}`);
+        console.log(`Bairro: ${data.bairro}`);
+        console.log(`Cidade: ${data.cidade}`);
+        console.log(`Estados: ${data.estados}`);
+
+    })
+
+
+    .catch(error =>{
+        alert("ALERT erro ao requisitar ao serviço na nuvem!");
+        console.error("erro ao requisitar ao serviço na nuvem!");
+
+    });
+
+}
+
+    </script>
